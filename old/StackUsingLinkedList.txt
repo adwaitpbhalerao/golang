@@ -1,0 +1,101 @@
+Stack using Linked List
+
+ 
+
+package main
+
+ 
+
+import(
+
+    "fmt"
+
+)
+
+type Stack struct{
+
+    top *Value
+
+    size int
+
+}
+
+ 
+
+type Value struct{
+
+    data interface{}
+
+    next *Value
+
+}
+
+ 
+
+func (s*Stack) len() int{
+
+    return s.size
+
+}
+
+ 
+
+func(s*Stack)Push(data interface{}){
+
+    s.top = &Value{data, s.top}
+
+    s.size++
+
+}
+
+ // Remove top element
+
+ func (s*Stack) Pop() (data interface{}) {
+
+     if s.size >0 {
+
+         data, s.top = s.top.data, s.top.next
+
+         s.size--
+
+     }
+
+     return 
+
+ }
+
+ 
+
+ func main(){
+
+     stack :=new(Stack)
+
+     stack.Push("Hello\n")
+
+   stack.Pop()
+
+     stack.Push("MTK\n")
+
+     stack.Push("SIR\n")
+
+     stack.Pop()
+
+ 
+
+  var length = stack.len()
+
+  fmt.Println("Stack Length is:",length)
+
+ 
+
+     for stack.len() > 0{
+
+         fmt.Printf("%s", stack.Pop().(string))
+
+        
+
+     }
+
+     fmt.Println()
+
+ }

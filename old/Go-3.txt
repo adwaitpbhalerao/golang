@@ -1,0 +1,93 @@
+import "fmt"
+
+//TestVersion testVersion
+
+const TestVersion = 1
+
+//Buffer buffer type
+
+type Buffer struct {
+
+    buffer []byte
+
+    full   int
+
+    size   int
+
+    s, e   int
+
+}
+
+//NewBuffer creates a new Buffer
+
+func NewBuffer(size int) *Buffer {
+
+    return &Buffer{buffer: make([]byte, size), s: , e: , size: size, full: }
+
+}
+
+//ReadByte reads a byte from b Buffer
+
+func (b *Buffer) ReadByte() (byte, error) {
+
+    if b.full ==  {
+
+        return , fmt.Errorf("Danger Will Robinson: %s", b)
+
+    }
+
+    readByte := b.buffer[b.s]
+
+    b.s = (b.s + 1) % b.size
+
+    b.full--
+
+    return readByte, nil
+
+}
+
+//WriteByte writes c byte to the buffer
+
+func (b *Buffer) WriteByte(c byte) error {
+
+    if b.full+1 > b.size {
+
+        return fmt.Errorf("Danger Will Robinson: %s", b)
+
+    }
+
+    b.buffer[b.e] = c
+
+    b.e = (b.e + 1) % b.size
+
+    b.full++
+
+    return nil
+
+}
+
+//Overwrite overwrites the oldest byte in Buffer
+
+func (b *Buffer) Overwrite(c byte) {
+
+    b.buffer[b.s] = c
+
+    b.s = (b.s + 1) % b.size
+
+}
+
+//Reset resets the buffer
+
+func (b *Buffer) Reset() {
+
+    *b = *NewBuffer(b.size)
+
+}
+
+//String for a string representation of Buffer
+
+func (b *Buffer) String() string {
+
+    return fmt.Sprintf("Buffer: %d, %d, %d, %d", b.buffer, b.s, b.e, b.size)
+
+}
